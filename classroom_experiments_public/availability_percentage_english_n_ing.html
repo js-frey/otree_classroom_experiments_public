@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+{% include Constants.header_template %}
+
+<div style="margin-left: auto; margin-right: auto; width:inherit;">
+    <p>
+        {% if player.english_is_treatment_n %}
+            Please estimate the percentage of words in the English language of the form _ _ _ _ _ n_: <br>
+        {% else %}
+            Please estimate the percentage of words in the English language of the form _ _ _ _ i n g: <br>
+        {% endif %}
+        <input class="small_input" name="availability_percentage_english_n_ing" />%
+    </p>
+
+</div>
+<button>Next</button>
+{% endblock %}
+
+

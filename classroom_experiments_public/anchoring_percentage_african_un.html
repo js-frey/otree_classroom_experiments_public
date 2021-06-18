@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+{% include Constants.header_template %}
+
+<div style="margin-left: auto; margin-right: auto; width:inherit;">
+    <p>
+        {% if player.africa_un_is_treatment_anchor_10 %}
+            Is the percentage of african countries in the united nations above or below 10%?
+        {% else %}
+            Is the percentage of african countries in the united nations above or below 65%?
+        {% endif %}
+        {% form.un_above %}
+        <br />
+        Please guess the percentage of african countries in the UN:  <input class="small_input" name="anchoring_percentage_african_un" />%
+        {{ formfield_errors 'anchoring_percentage_african_un' }}
+    </p>
+
+</div>
+<button>Next</button>
+{% endblock %}
+

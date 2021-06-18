@@ -1,0 +1,81 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+{% include Constants.header_template %}
+
+    <p>
+        Suppose you are offered two investments, described by the payoffs below.  Which one would you choose?
+        {% if player.allais_treatment_is_66_2400 %}
+        <table>
+            <tr>
+                <td></td>
+                <td>33% Chance</td>
+                <td>1% Chance</td>
+                <td>66% Chance</td>
+            </tr>
+            <tr>
+                <td><button name="option_chosen_allais_paradox" value="1">Choose</button></td>
+                <td>£2500</td>
+                <td>£0</td>
+                <td>£2400</td>
+            </tr>
+            <tr>
+                <td><button name="option_chosen_allais_paradox" value="2">Choose</button></td>
+                <td>£2400</td>
+                <td>£2400</td>
+                <td>£2400</td>
+            </tr>
+        </table>
+        {% else %}
+        <table>
+            <tr>
+                <td></td>
+                <td>33% Chance</td>
+                <td>1% Chance</td>
+                <td>66% Chance</td>
+            </tr>
+            <tr>
+                <td><button name="option_chosen_allais_paradox" value="1">Choose</button></td>
+                <td>£2500</td>
+                <td>£0</td>
+                <td>£0</td>
+            </tr>
+            <tr>
+                <td><button name="option_chosen_allais_paradox" value="2">Choose</button></td>
+                <td>£2400</td>
+                <td>£2400</td>
+                <td>£0</td>
+            </tr>
+        </table>
+
+        {% endif %}
+    </p>
+
+{% endblock %}
+
+{% block app_styles %}
+    <style>
+
+
+        button {
+            width: 100%;
+            padding: 6px;
+            border: 2px solid white;
+        }
+
+
+
+
+        td {
+            border: 1px solid white;
+            background-color: rgb(0, 33, 71);
+            color: white;
+            font-weight: bold;
+            font-size: 19px;
+            padding: 3px 10px 3px 10px;
+            text-align: center;
+            width: 12.5%;
+        }
+    </style>
+{% endblock %}

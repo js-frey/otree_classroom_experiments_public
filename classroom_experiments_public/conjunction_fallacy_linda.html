@@ -1,0 +1,168 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+{% include Constants.header_template %}
+
+    <div style="margin-left: auto; margin-right: auto; width:inherit;">
+        Linda is 31 years old, single, outspoken, and very bright. She majored in philosophy.
+        As a student, she was deeply concerned with issues of discrimination and social justice, and also participated in pro-LGBT demonstrations.
+        What is Linda now?  Please rank the following options from most likely (1) to least likely (7). Read all options carefully before you rank them. 
+
+
+        <table>
+            <tr>
+                <td>Linda is a teacher in elementary school</td>
+                <td><input name="linda_elementary_input" class="small_input" id="linda_rank_elementary_input_id" /></td>
+            </tr>
+            <tr>
+                <td>Linda is active in the feminist movement</td>
+                <td><input name="linda_rank_feminist_input" class="small_input" id="linda_rank_feminist_input_id" /></td>
+            </tr>
+            <tr>
+                <td>Linda is a bank teller</td>
+                <td><input name="linda_rank_bank_input" class="small_input" id="linda_rank_bank_input_id" /></td>
+            </tr>
+            <tr>
+                <td>Linda is a psychiatric social worker</td>
+                <td><input name="linda_rank_psychiatric_input" class="small_input" id="linda_rank_psychiatric_input_id" /></td>
+            </tr>
+            <tr>
+                <td>Linda is an insurance salesperson</td>
+                <td><input name="linda_rank_insurance_input" class="small_input" id="linda_rank_insurance_input_id" /></td>
+            </tr>
+            <tr>
+                <td>Linda is a bank teller and is active in the feminist movement</td>
+                <td><input name="linda_rank_bank_feminist_input" class="small_input" id="linda_rank_bank_feminist_input_id" /></td>
+            </tr>
+            <tr>
+                <td>Linda works in a bookstore and takes Yoga classes</td>
+                <td><input name="linda_rank_book_yoga_input" class="small_input" id="linda_rank_book_yoga_input_id" /></td>
+            </tr>
+        </table>
+    </div>
+
+    {% comment %} The hidden inputs are not visible but needed they get matched to the allocation via JS they have the same name as the corresponding python model field {% endcomment %}
+<input type="hidden" name="linda_rank_elementary" id="id_linda_rank_elementary" />
+<input type="hidden" name="linda_rank_feminist" id="id_linda_rank_feminist" />
+<input type="hidden" name="linda_rank_bank" id="id_linda_rank_bank" />
+<input type="hidden" name="linda_rank_psychiatric" id="id_linda_rank_psychiatric" />
+<input type="hidden" name="linda_rank_insurance" id="id_linda_rank_insurance" />
+<input type="hidden" name="linda_rank_bank_feminist" id="id_linda_rank_bank_feminist" />
+<input type="hidden" name="linda_rank_book_yoga" id="id_linda_rank_book_yoga" />
+<button>Next</button>
+
+
+<script>
+    // initialise variables to javascript
+    var linda_rank_elementary = null;
+    var linda_rank_feminist = null;
+    var linda_rank_bank = null;
+    var linda_rank_psychiatric = null;
+    var linda_rank_insurance = null;
+    var linda_rank_bank_feminist = null;
+    var linda_rank_book_yoga = null;
+
+    //timer = setInterval(read_bank_teller_ranks, 100);
+    // this function reads the form into js variables without submitting it
+    var new_input_array = [0, 0, 0, 0, 0, 0, 0];
+    var old_input_array = [0, 0, 0, 0, 0, 0, 0];
+    function read_bank_teller_ranks() {
+        // set last rounds new input to this roudsn old
+        old_input_array = new_input_array.slice()
+        var x = document.getElementById("form");
+        // read in values and set form back to 0 if the value is below 1 not a legal entry
+        legal_entries = [1, 2, 3, 4, 5, 6, 7];
+        linda_rank_elementary = Number(x.linda_elementary_input.value);
+        if (!legal_entries.includes(linda_rank_elementary)) {
+            linda_rank_elementary = null;
+            document.getElementById("linda_rank_elementary_input_id").value = null;
+        }
+        linda_rank_feminist = Number(x.linda_rank_feminist_input.value);
+        if (!legal_entries.includes(linda_rank_feminist)) {
+            linda_rank_feminist = null;
+            document.getElementById("linda_rank_feminist_input_id").value = null;
+        }
+        linda_rank_bank = Number(x.linda_rank_bank_input.value);
+        if (!legal_entries.includes(linda_rank_bank)) {
+            linda_rank_bank = null;
+            document.getElementById("linda_rank_bank_input_id").value = null;
+        }
+        linda_rank_psychiatric = Number(x.linda_rank_psychiatric_input.value);
+        if (!legal_entries.includes(linda_rank_psychiatric)) {
+            linda_rank_psychiatric = null;
+            document.getElementById("linda_rank_psychiatric_input_id").value = null;
+        }
+        linda_rank_insurance = Number(x.linda_rank_insurance_input.value);
+        if (!legal_entries.includes(linda_rank_insurance)) {
+            linda_rank_insurance = null;
+            document.getElementById("linda_rank_insurance_input_id").value = null;
+        }
+        linda_rank_bank_feminist = Number(x.linda_rank_bank_feminist_input.value);
+        if (!legal_entries.includes(linda_rank_bank_feminist)) {
+            linda_rank_bank_feminist = null;
+            document.getElementById("linda_rank_bank_feminist_input_id").value = null;
+        }
+        linda_rank_book_yoga = Number(x.linda_rank_book_yoga_input.value);
+        if (!legal_entries.includes(linda_rank_book_yoga)) {
+            linda_rank_book_yoga = null;
+            document.getElementById("linda_rank_book_yoga_input_id").value = null;
+        }
+
+        new_input_array = [linda_rank_elementary, linda_rank_feminist, linda_rank_bank, linda_rank_psychiatric, linda_rank_insurance, linda_rank_bank_feminist, linda_rank_book_yoga];
+
+        var i;
+        index_and_value_of_new_inputs = [];
+        for (i = 0; i <= 6; i++) {
+            if (old_input_array[i] != new_input_array[i]) {
+                index_and_value_of_new_inputs.push([new_input_array[i], i])
+            }
+        }
+        // check all fields if they have the values that are new and are not the new fields itself empty them
+        for (i = 0; i < index_and_value_of_new_inputs.length; i++) {
+            // if linda is elementary school teacher hsa the same value of a new input but is itself not the new input its value is deleted
+            if (linda_rank_elementary == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 0) {
+                document.getElementById("linda_rank_elementary_input_id").value = null;
+            } else if (linda_rank_feminist == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 1) {
+                document.getElementById("linda_rank_feminist_input_id").value = null
+            } else if (linda_rank_bank == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 2) {
+                document.getElementById("linda_rank_bank_input_id").value = null
+            } else if (linda_rank_psychiatric == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 3) {
+                document.getElementById("linda_rank_psychiatric_input_id").value = null
+            } else if (linda_rank_insurance == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 4) {
+                document.getElementById("linda_rank_insurance_input_id").value = null
+            } else if (linda_rank_bank_feminist == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 5) {
+                document.getElementById("linda_rank_bank_feminist_input_id").value = null
+            } else if (linda_rank_book_yoga == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 6) {
+                document.getElementById("linda_rank_book_yoga_input_id").value = null
+            }
+        }
+
+
+
+        // bind values
+        document.getElementById("id_linda_rank_elementary").value = linda_rank_elementary;
+        document.getElementById("id_linda_rank_feminist").value = linda_rank_feminist;
+        document.getElementById("id_linda_rank_bank").value = linda_rank_bank;
+        document.getElementById("id_linda_rank_psychiatric").value = linda_rank_psychiatric;
+        document.getElementById("id_linda_rank_insurance").value = linda_rank_insurance;
+        document.getElementById("id_linda_rank_bank_feminist").value = linda_rank_bank_feminist;
+        document.getElementById("id_linda_rank_book_yoga").value = linda_rank_book_yoga;
+
+        //x.submit();
+    }
+    timer = setInterval(read_bank_teller_ranks, 100);
+</script>
+
+
+
+
+
+{% endblock %}
+{% block app_styles %}
+
+{% endblock %}

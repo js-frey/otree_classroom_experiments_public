@@ -1,0 +1,146 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+{% include Constants.header_template %}
+
+<div style="margin-left: auto; margin-right: auto; width:inherit;">
+    <p>
+        Steve is very shy and withdrawn, invariably helpful, but with little interest in people, or in the world of reality. A meek and tidy soul, he has a need for order and structure and a passion for detail.
+    </p>
+    <p>
+        {% if player.steve_treatment_is_probability %}
+            Please rank the professions below in order of probability that Steve has the profession.
+        {% else %}
+            Please rank the professions below in order of how similar they are to Steve's description.
+        {% endif %}
+    </p>
+
+    <table>
+        <tr>
+            <td>Farmer</td>
+            <td><input name="steve_farmer_rank_input" class="small_input" id="steve_farmer_rank_input_id" /></td>
+        </tr>
+        <tr>
+            <td>Salesman</td>
+            <td><input name="steve_salesman_rank_input" class="small_input" id="steve_salesman_rank_input_id" /></td>
+        </tr>
+        <tr>
+            <td>Airline Pilot</td>
+            <td><input name="steve_pilot_rank_input" class="small_input" id="steve_pilot_rank_input_id" /></td>
+        </tr>
+        <tr>
+            <td>Librarian</td>
+            <td><input name="steve_librarian_rank_input" class="small_input" id="steve_librarian_rank_input_id" /></td>
+        </tr>
+        <tr>
+            <td>Physician</td>
+            <td><input name="steve_physician_rank_input" class="small_input" id="steve_physician_rank_input_id" /></td>
+        </tr>
+    </table>
+</div>
+
+    {% comment %} The hidden inputs are not visible but needed they get matched to the allocation via JS they have the same name as the corresponding python model field {% endcomment %}
+<input type="hidden" name="steve_farmer_rank" id="id_steve_farmer_rank" />
+<input type="hidden" name="steve_salesman_rank" id="id_steve_salesman_rank" />
+<input type="hidden" name="steve_pilot_rank" id="id_steve_pilot_rank" />
+<input type="hidden" name="steve_librarian_rank" id="id_steve_librarian_rank" />
+<input type="hidden" name="steve_physician_rank" id="id_steve_physician_rank" />
+
+<button>Next</button>
+
+
+
+
+
+
+
+
+<script>
+    // initialise variables to javascript
+    var steve_farmer_rank = null;
+    var steve_salesman_rank = null;
+    var steve_pilot_rank = null;
+    var steve_librarian_rank = null;
+    var steve_physician_rank = null;
+
+    // this function reads the form into js variables without submitting it
+    var new_input_array = [0, 0, 0, 0, 0,];
+    var old_input_array = [0, 0, 0, 0, 0,];
+    function read_steve_ranks() {
+        // set last rounds new input to this roudsn old
+        old_input_array = new_input_array.slice()
+        var x = document.getElementById("form");
+        // read in values and set form back to 0 if the value is below 1 not a legal entry
+        legal_entries = [1, 2, 3, 4, 5,];
+        steve_farmer_rank = Number(x.steve_farmer_rank_input.value);
+        if (!legal_entries.includes(steve_farmer_rank)) {
+            steve_farmer_rank = null;
+            document.getElementById("steve_farmer_rank_input_id").value = null;
+        }
+        steve_salesman_rank = Number(x.steve_salesman_rank_input.value);
+        if (!legal_entries.includes(steve_salesman_rank)) {
+            steve_salesman_rank = null;
+            document.getElementById("steve_salesman_rank_input_id").value = null;
+        }
+        steve_pilot_rank = Number(x.steve_pilot_rank_input.value);
+        if (!legal_entries.includes(steve_pilot_rank)) {
+            steve_pilot_rank = null;
+            document.getElementById("steve_pilot_rank_input_id").value = null;
+        }
+        steve_librarian_rank = Number(x.steve_librarian_rank_input.value);
+        if (!legal_entries.includes(steve_librarian_rank)) {
+            steve_librarian_rank = null;
+            document.getElementById("steve_librarian_rank_input_id").value = null;
+        }
+        steve_physician_rank = Number(x.steve_physician_rank_input.value);
+        if (!legal_entries.includes(steve_physician_rank)) {
+            steve_physician_rank = null;
+            document.getElementById("steve_physician_rank_input_id").value = null;
+        }
+        new_input_array = [steve_farmer_rank, steve_salesman_rank, steve_pilot_rank, steve_librarian_rank, steve_physician_rank];
+
+        var i;
+        index_and_value_of_new_inputs = [];
+        for (i = 0; i <= 6; i++) {
+            if (old_input_array[i] != new_input_array[i]) {
+                index_and_value_of_new_inputs.push([new_input_array[i], i])
+            }
+        }
+        // check all fields if they have the values that are new and are not the new fields itself empty them
+        for (i = 0; i < index_and_value_of_new_inputs.length; i++) {
+            // if steve_rank_farme has the same value of a new input but is itself not the new input its value is deleted
+            if (steve_farmer_rank == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 0) {
+                document.getElementById("steve_farmer_rank_input_id").value = null;
+            } else if (steve_salesman_rank == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 1) {
+                document.getElementById("steve_salesman_rank_input_id").value = null
+            } else if (steve_pilot_rank == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 2) {
+                document.getElementById("steve_pilot_rank_input_id").value = null
+            } else if (steve_librarian_rank == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 3) {
+                document.getElementById("steve_librarian_rank_input_id").value = null
+            } else if (steve_physician_rank == index_and_value_of_new_inputs[i][0] && index_and_value_of_new_inputs[i][1] != 4) {
+                document.getElementById("steve_physician_rank_input_id").value = null
+            }
+        }
+
+
+
+        // bind values
+        document.getElementById("id_steve_farmer_rank").value = steve_farmer_rank;
+        document.getElementById("id_steve_salesman_rank").value = steve_salesman_rank;
+        document.getElementById("id_steve_pilot_rank").value = steve_pilot_rank;
+        document.getElementById("id_steve_librarian_rank").value = steve_librarian_rank;
+        document.getElementById("id_steve_physician_rank").value = steve_physician_rank;
+        //x.submit();
+    }
+    timer = setInterval(read_steve_ranks, 100);
+</script>
+
+
+
+
+
+{% endblock %}
+{% block app_styles %}
+
+{% endblock %}

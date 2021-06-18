@@ -1,0 +1,341 @@
+<div class="navbar">
+        <span class="navbar-brand" id="page_title"> </span>
+    </div>
+
+    {% if session.config.use_base_rate_fallacy_medical_test %}
+        <h2>Question Medical Test</h2>
+        <button type="button" onclick="show_base_rate_fallacy_medical_test()">Show Results</button>
+        <div class="question_wrapper" id="MedicalTest" style="display: none">
+            <p>
+                Average guessed likelihood that the patient has the disease: <b><span id="medical_test_accuracy_average_percentage">{{ medical_test_accuracy_average_percentage }}</span>%</b>
+            </p>
+        </div>
+    {% endif %}
+    {% if session.config.use_conjunction_fallacy_linda %}
+        <h2>Question Linda</h2>
+        <button type="button" onclick="show_conjunction_fallacy_linda()">Show Results</button>
+        <div class="question_wrapper" id="LindaPage" style="display: none">
+            <p>
+                Average rank that Linda is a bank teller: <span style="font-weight: bold">{{ average_rank_banking|to2 }}</span> <br />
+                Average rank that Linda is a bank teller and a feminist: <span style="font-weight: bold">{{ average_rank_banking_feminist|to2 }}</span>
+            </p>
+        </div>
+    {% endif %}
+    {% if session.config.use_base_rate_vs_similarity_steve_profession %}
+        <h2>Question Steve's Profession</h2>
+        <button type="button" onclick="show_base_rate_vs_similarity_steve_profession()">Show Results</button>
+        <div class="question_wrapper" id="SteveProfession" style="display: none">
+            <div id="steve_chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+    {% endif %}
+    {% if session.config.use_availability_percentage_english_n_ing %}
+        <h2>Question Share _n_ / ing</h2>
+        <button type="button" onclick="show_availability_percentage_english_n_ing()">Show Results</button>
+        <div class="question_wrapper" id="english_n_ing" style="display: none">
+            Average guess share _n_: <span style="font-weight: bold">{{ percentage_n_english }}</span>% <br />
+            Average guess share ing: <span style="font-weight: bold">{{ percentage_ing_english }}</span>% <br />
+        </div>
+    {% endif %}
+    {% if session.config.use_anchoring_percentage_african_un %}
+        <h2>Question Share African countries in the UN</h2>
+        <button type="button" onclick="show_anchoring_percentage_african_un()">Show Results</button>
+        <div class="question_wrapper" id="percentage_african_un" style="display: none">
+            Average guess with the 10% Anchor: <span style="font-weight: bold">{{ percentage_africa_un_10 }}</span>% <br />
+            Average guess  with the 65% Anchor: <span style="font-weight: bold">{{ percentage_africa_un_65 }}</span>% <br />
+        </div>
+    {% endif %}
+
+
+    {% if session.config.use_loss_aversion_cruise_ship %}
+        <h2>Question Cruise Ship</h2>
+        <button type="button" onclick="show_loss_aversion_cruise_ship()">Show Results</button>
+        <div class="question_wrapper" id="loss_aversion_cruise_ship" style="display: none">
+            <div id="loss_aversion_cruise_ship_graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+    {% endif %}
+
+    {% if session.config.use_allais_paradox %}
+        <h2>Question Investment - Allais Paradox</h2>
+        <button type="button" onclick="show_allais_paradox()">Show Results</button>
+        <div class="question_wrapper" id="allais_paradox" style="display: none">
+            <div id="allais_paradox_graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+    {% endif %}
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+
+// functions to toggle the results
+        function show_base_rate_fallacy_medical_test() {
+          var x = document.getElementById("MedicalTest");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+
+        function show_conjunction_fallacy_linda() {
+          var x = document.getElementById("LindaPage");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+
+        function show_base_rate_vs_similarity_steve_profession() {
+          var x = document.getElementById("SteveProfession");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+
+        function show_availability_percentage_english_n_ing() {
+          var x = document.getElementById("english_n_ing");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+
+        function show_anchoring_percentage_african_un() {
+          var x = document.getElementById("percentage_african_un");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+
+
+        function show_loss_aversion_cruise_ship() {
+          var x = document.getElementById("loss_aversion_cruise_ship");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+
+        function show_allais_paradox() {
+          var x = document.getElementById("allais_paradox");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+
+        {% if session.config.use_base_rate_vs_similarity_steve_profession %}
+        var average_probability_farmer_rank = {{ average_probability_farmer_rank }};
+        var average_probability_salesman_rank = {{ average_probability_salesman_rank }};
+        var average_probability_pilot_rank = {{ average_probability_pilot_rank }};
+        var average_probability_librarian_rank = {{ average_probability_librarian_rank }};
+        var average_probability_physician_rank = {{ average_probability_physician_rank }};
+
+        var average_similarity_farmer_rank = {{ average_similarity_farmer_rank }};
+        var average_similarity_salesman_rank = {{ average_similarity_salesman_rank }};
+        var average_similarity_pilot_rank = {{ average_similarity_pilot_rank }};
+        var average_similarity_librarian_rank = {{ average_similarity_librarian_rank }};
+        var average_similarity_physician_rank = {{ average_similarity_physician_rank }};
+
+
+         steve_chart = Highcharts.chart('steve_chart', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['Farmer', 'Salesman', 'Airline Pilot', 'Librarian', 'Physician'],
+                crosshair: true,
+            },
+            yAxis: {
+                min: 0,
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br />',
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Probability',
+                data: [average_probability_farmer_rank, average_probability_salesman_rank,average_probability_pilot_rank,average_probability_librarian_rank,average_probability_physician_rank]
+            }, {
+                name: 'Similarity',
+                data: [average_similarity_farmer_rank,average_similarity_salesman_rank,average_similarity_pilot_rank,average_similarity_librarian_rank,average_similarity_physician_rank]
+            }]
+        });
+        {% endif %}
+
+        // asian disease
+        {% if session.config.use_loss_aversion_cruise_ship %}
+        loss_aversion_cruise_ship_gain_treatment_number_option_a = {{ loss_aversion_cruise_ship_gain_treatment_number_option_a | json }};
+        loss_aversion_cruise_ship_gain_treatment_number_option_b = {{ loss_aversion_cruise_ship_gain_treatment_number_option_b | json }};
+        loss_aversion_cruise_ship_loss_treatment_number_option_a = {{ loss_aversion_cruise_ship_loss_treatment_number_option_a | json }};
+        loss_aversion_cruise_ship_loss_treatment_number_option_b = {{ loss_aversion_cruise_ship_loss_treatment_number_option_b | json }};
+
+        loss_aversion_cruise_ship_graph = Highcharts.chart('loss_aversion_cruise_ship_graph', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['Save Framing', 'Die Framing']
+            },
+            yAxis: {
+                min: 0,
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent'
+                }
+            },
+            series: [{
+                name: 'Save 200 / 400 die',
+                data: [loss_aversion_cruise_ship_gain_treatment_number_option_a, loss_aversion_cruise_ship_loss_treatment_number_option_a]
+            }, {
+                name: '1/3 no death, 2/3 all die',
+                data: [loss_aversion_cruise_ship_gain_treatment_number_option_b, loss_aversion_cruise_ship_loss_treatment_number_option_b]
+            }]
+        });
+        {% endif %}
+
+        {% if session.config.use_allais_paradox %}
+        // question allais paradox
+       allais_paradox_66_2400_lottery_a = {{ allais_paradox_66_2400_lottery_a | json }};
+       allais_paradox_66_2400_lottery_b = {{ allais_paradox_66_2400_lottery_b | json }};
+       allais_paradox_66_0_lottery_a = {{ allais_paradox_66_0_lottery_a | json }};
+       allais_paradox_66_0_lottery_b = {{ allais_paradox_66_0_lottery_b | json }};
+
+        allais_paradox_graph = Highcharts.chart('allais_paradox_graph', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['66% chance £2400', '66% chance £0']
+            },
+            yAxis: {
+                min: 0,
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent'
+                }
+            },
+            series: [{
+                name: '33% chance 2400£',
+                data: [allais_paradox_66_2400_lottery_a,allais_paradox_66_0_lottery_a]
+            }, {
+                name: '33% chance 2500£',
+                    data: [allais_paradox_66_2400_lottery_b,allais_paradox_66_0_lottery_b]
+            }]
+        });
+        {% endif %}
+
+
+</script>
+
+<style>
+        body {
+            font-size: 24px;
+        }
+
+        .question_wrapper {
+            margin-bottom: 30px;
+        }
+
+        .heading2 {
+            font-weight: bold;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        button {
+            font: bold 20px Arial;
+            text-decoration: none;
+            background-color: rgb(0, 33, 71);
+            color: white;
+            width: 100%;
+            padding: 6px 10px 6px 10px;
+        }
+
+        table {
+            border: 1px solid black;
+        }
+
+        /* tr.classname td assigns style to all td in a tr with this class*/
+        tr.heading1 td {
+            font-size: 30px;
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid white;
+        }
+
+        tr.heading2 td {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        tr.heading3 td {
+            font-size: 22px;
+            text-align: center;
+        }
+
+        tr.heading4 td {
+            font-style: italic;
+            text-align: center;
+            border: none;
+        }
+
+        td.button {
+            text-align: center;
+            border: 2px solid black;
+            padding: 0px;
+        }
+
+        tr.no_border td {
+            border: none;
+        }
+        /*# selects via id not class, this overrides a parent class*/
+        #border_right {
+            border-right: 2px solid white;
+        }
+
+
+        td {
+            border: 1px solid white;
+            background-color: rgb(0, 33, 71);
+            color: white;
+            font-weight: bold;
+            font-size: 19px;
+            padding: 3px 10px 3px 10px;
+            text-align: center;
+            width: 12.5%;
+        }
+    </style>

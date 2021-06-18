@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block content %}
+{% include Constants.header_template %}
+
+    <p>
+        A doctor informs a patient that he tested positive for a disease. The test's accuracy is 95%, meaning that the rate of false positives is 5% and there are no false negatives.
+        The doctor knows that the prevalence of the disease is 1 per 1000 people.
+        Based on this test, what is the likelihood that the patient actually has the disease?<br />
+        <br />
+        The likelihood is <input class="small_input" id="test_accuracy_id" name="test_accuracy">%.
+    </p>
+    <br>
+    <button>Next</button>
+
+{% endblock %}

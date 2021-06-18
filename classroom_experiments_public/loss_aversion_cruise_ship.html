@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+    {% include Constants.header_template %}
+
+    <p>
+        Imagine a cruise ship with 600 people on board is caught in a severe storm.  Two alternative rescue plans have been proposed
+        {% if player.loss_aversion_cruise_ship_gain_treatment %}
+            <ul>
+                <li>A: 200 people will be saved </li>
+                <li>B: there is a 1/3 chance that 600 people will be saved, and a 2/3 chance that no one will be saved</li>
+            </ul>
+        {% else %}
+            <ul>
+                <li>A: 400 people will die </li>
+                <li>B: There is a 1/3 chance that no one will die, and a 2/3 chance that 600 people will die</li>
+            </ul>
+        {% endif %}
+        <button id="plan_a_id" name="option_chosen_loss_aversion_cruise_ship" value="1">Choose Plan A</button><br />
+        <button id="plan_b_id" name="option_chosen_loss_aversion_cruise_ship" value="2">Choose Plan B</button><br />
+
+    </p>
+
+{% endblock %}
+
+
+{% block app_styles %}
+    <style>
+        button {
+            width: 100%;
+        }
+    </style>
+{% endblock %}
