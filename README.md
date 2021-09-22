@@ -8,7 +8,7 @@ Currently the following experiments are available:
 * Anchoring: Percentage of African countries in the UN
 * Availability Heuristic: English words ending in “ing” vs “\_n\_ ”
 * Loss Aversion: Cruise ship in a storm
-* Allais Paradox
+* Lotteries: Allais Paradox
 
 
 <h1>Usage</h1>
@@ -23,10 +23,32 @@ Please do not use the demo in an actual class, the server is not meant to handle
 <h1>The Experiments</h1>
 <h2>The Steve task</h2>
 In this experiment subjects get a description of Steve, an introvert person with an attention for detail. They are shown potential professions and are asked to rank how likely it is that Steve has these professions. Of particular interest are the options "librarian" and "farmer" many subejcts choose librarian over farmer, despite the fact that there are many more farmers than librarians. This highlights that people neglect base rates and judge by simiarity. In the version of the task implemented here, halve of the subejcts are asked to rank to professions by similarity rather than probability to show that there is little difference between these ratings.  
-
-<h2>The Linda task</h2>
+Reference: Tversky, A.; Kahneman, D. (1982). "Judgment under uncertainty: Heuristics and biases". In Kahneman, D.; Slovic, P.; Tversky, A. (eds.). Judgment under uncertainty: Heuristics and biases. Cambridge, UK: Cambridge University Press
 
 <h2>The Linda task</h2>
 In the linda task, subjects get a description of Linda, who is a progressive young woman. They are asked to rank a few statements based on the probability that these statements apply to Linda. The crucial statements are "Linda is a Bank Teller" and "Linda is a bank teller and is active in the feminist movement". The first statement must be more linkely, than the second, because if Linda is a bank teller and is active in the feminist movement she is also a Bank Teller, but it may be possible that Linda is a bank teller and not aktive in the feminist movement. However, because Linda is more representative of a feminist than of a bank teller, many people judge the second statement to be more likely. This si known as the "conjunciton fallacy". 
 
-Source: Tversky, A.; Kahneman, D. (1982). "Judgments of and by representativeness". In Kahneman, D.; Slovic, P.; Tversky, A. (eds.). Judgment under uncertainty: Heuristics and biases. Cambridge, UK: Cambridge University Press
+Reference: Tversky, A.; Kahneman, D. (1982). "Judgments of and by representativeness". In Kahneman, D.; Slovic, P.; Tversky, A. (eds.). Judgment under uncertainty: Heuristics and biases. Cambridge, UK: Cambridge University Press
+
+
+<h2>The Medical Test Tasks</h2>
+In this task subjects are told that there is a disease that 1 in 1000 people have. There isa test that is always positive for patiens who ahve the diesease but is also positive for 5% of healthy patients. Subjects are asked how likely it is that the subject has the disease given that she is tested positive. A large share of subejcts ignore the base rate and give high answers.
+
+Reference: Casscells, W., Schoenberger, A., & Grayboys, T. Interpretation by physicians of clinical laboratory results. New England Journal of Medicine, 1978, 299, 999-1000. (10, 18)
+
+<h2>Afrika in the UN</h2>
+In this task subjects are first asked if the share of arfrican countries in the UN is above or below a certain percentage. There are two treatments, one with a high and one with a low percentage. In a next step they are asked to guess the percentage of Arfrican countries in the UN. Due to anchoring and insufficient adjustment the frist question influences the second. The subejcts who saw the high percentage generally give higher estimates than those who saw the low percentage. 
+
+Reference:  Judgment under Uncertainty: Heuristics and Biases Amos Tversky; Daniel Kahneman Science, New Series, Vol. 185, No. 4157. (Sep. 27, 1974), pp. 1124-1131.
+
+<h2>English words ending in “ing” vs “\_n\_</h2>
+In this question subjects are divided into two treatments and have tu guess the percentage of words in the english language ending in in "_n_" and "ing" respectively. Despite the fact that all words ending in "ing" also end in "_n_" the guess is generally higher in the second treatment due to availability bias. 
+
+Based on a similar task in: Tversky, A.; Kahneman, D. (1982). "Availability: A heuristic for judging frequency and probability". In Kahneman, D.; Slovic, P.; Tversky, A. (eds.). Judgment under uncertainty: Heuristics and biases. Cambridge, UK: Cambridge University Press
+
+<h2>Cruise ship in a storm</h2>
+In this task subjects are told that a cruise ship has come into a storm and the passangers need to be rescued. They need to decide between two plans, one of which saves a subset of the passangers with certainty and the other either saves all or no passangers with a certain probability. There are two treatments one wich is framed in terms of lives saved and one which is framed in terms of lieves lost. In "save" frame msot people choose the safe option and in the "loss" frame msot people choose the risky option, whcih can be explained by loss aversion. 
+
+Based on the "Asian Disease Problem" in Tversky, A., & Kahneman, D. (1981). The framing of decisions and the psychology of choice. Science, 211(4481), 453–458.
+
+<h2> Lotteries: Allais Paradox</h2>
