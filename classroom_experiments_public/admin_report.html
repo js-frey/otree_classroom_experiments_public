@@ -132,17 +132,17 @@
         }
 
         {% if session.config.use_base_rate_vs_similarity_steve_profession %}
-        var average_probability_farmer_rank = {{ average_probability_farmer_rank }};
-        var average_probability_salesman_rank = {{ average_probability_salesman_rank }};
-        var average_probability_pilot_rank = {{ average_probability_pilot_rank }};
-        var average_probability_librarian_rank = {{ average_probability_librarian_rank }};
-        var average_probability_physician_rank = {{ average_probability_physician_rank }};
+        var average_probability_farmer_rank = {{ average_probability_farmer_rank|json }};
+        var average_probability_salesman_rank = {{ average_probability_salesman_rank|json  }};
+        var average_probability_pilot_rank = {{ average_probability_pilot_rank|json  }};
+        var average_probability_librarian_rank = {{ average_probability_librarian_rank|json  }};
+        var average_probability_physician_rank = {{ average_probability_physician_rank|json  }};
 
-        var average_similarity_farmer_rank = {{ average_similarity_farmer_rank }};
-        var average_similarity_salesman_rank = {{ average_similarity_salesman_rank }};
-        var average_similarity_pilot_rank = {{ average_similarity_pilot_rank }};
-        var average_similarity_librarian_rank = {{ average_similarity_librarian_rank }};
-        var average_similarity_physician_rank = {{ average_similarity_physician_rank }};
+        var average_similarity_farmer_rank = {{ average_similarity_farmer_rank|json  }};
+        var average_similarity_salesman_rank = {{ average_similarity_salesman_rank|json  }};
+        var average_similarity_pilot_rank = {{ average_similarity_pilot_rank|json  }};
+        var average_similarity_librarian_rank = {{ average_similarity_librarian_rank|json  }};
+        var average_similarity_physician_rank = {{ average_similarity_physician_rank|json  }};
 
 
          steve_chart = Highcharts.chart('steve_chart', {
