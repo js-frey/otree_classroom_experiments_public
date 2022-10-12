@@ -15,9 +15,6 @@ Currently the following experiments are available:
 You can configure which sessions you want to use by clicking on “configure session” in the sessions tab or in the SESSION_CONFIGS in the settings.py file.
 Once you have created a session you can view the results by clicking on “report” in the session menu.
 Click the “Go” button to fetch new results. Only results of participants who have completed all questions will be displayed.
-A demo version of the experiment can be found here: https://classroom-experiments-demo.herokuapp.com/demo.
-This demo uses all available experiments and it is not configurable.
-Please do not use the demo in an actual class, the server is not meant to handle more than a few subjects. To learn how to install oTree and set up your own server to use the classroom experiments, you can check out the official documentation (https://otree.readthedocs.io/en/latest/) or this video tutorials: https://youtu.be/OzkFvVhoHr0 .
 
 
 <h1>The Experiments</h1>
